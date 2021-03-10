@@ -1,0 +1,629 @@
+@charset "utf-8";
+@import '_var', '_mixin', '_function';
+
+#cnt1 {
+  .swiper-container {
+    width: 100%;
+    height: 100vh;
+    color: #fff;
+    .swiper-slide {
+      @include bgsize(cover);
+      background: no-repeat center;
+      .m_img {
+        display: none;
+      }
+    }
+
+    .slide1 {
+      background-image: url('../images/visual/visual1.jpg');
+    }
+    .slide2 {
+      background-image: url('../images/visual/visual2.jpg');
+    }
+    .slide3 {
+      background-image: url('../images/visual/visual3.jpg');
+    }
+    .slide4 {
+      background-image: url('../images/visual/visual4.jpg');
+    }
+    .slide5 {
+      background-image: url('../images/visual/visual5.jpg');
+    }
+  }
+  .txtbox {
+    @include translateY-50;
+    position: absolute;
+    top: 50%;
+    left: 26.5%;
+    h3 {
+      font-size: 24px;
+      span {
+        display: block;
+        margin: 10px 0 35px;
+        font-weight: 700;
+        font-size: 94px;
+        min-width: 700px;
+        letter-spacing: normal;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+      }
+    }
+    p {
+      margin-bottom: 75px;
+      width: 55%;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+  }
+  .black .txtbox {
+    color: #000;
+  }
+  .controller {
+    top: 20%;
+    right: 13%;
+    z-index: 500;
+    .swiper-pagination,
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: static;
+    } /* position: static => position 속성을 제거할 경우 사용 */
+    /* float 속성 제거할경우는 => float:none; */
+    .swiper-pagination {
+      letter-spacing: 0.2rem;
+      font-size: 20px;
+      .swiper-pagination-current {
+        font-size: 40px;
+        font-weight: 800;
+      }
+    }
+    .swiper-button-wrap {
+      display: flex;
+      margin-top: 20px;
+      // .swiper 슬라이더에서 이전과 다음 버튼은 가상요소로 생성 -> 나만의 디자인을 원하면 가상요소를 display:none;
+      .swiper-button-prev:after,
+      .swiper-button-next:after {
+        display: none;
+      }
+      .swiper-button-prev {
+        background: url('../images/common/left_btn_white.png');
+      }
+      .swiper-button-next {
+        background: url('../images/common/right_btn_white.png');
+        margin-left: 20px;
+      }
+    }
+    .swiper_btn,
+    .play_pause {
+      @include bgsize(cover);
+      width: 11px;
+      height: 18px;
+      background: no-repeat center;
+      margin-top: 0;
+    }
+    .play_pause {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      &.play {
+        display: none;
+        background-image: url('../images/common/play_btn_white.png');
+      }
+      &.pause {
+        // display: none;
+        background-image: url('../images/common/pause_btn_white.png');
+      }
+    }
+  }
+  .controller.black {
+    //스크립트에서 현재 보여지는 슬라이더가 .black이라는 클래스를 가지면 .controller에도 추가 시킨다
+    color: #000;
+    .swiper-button-wrap {
+      .swiper-button-prev {
+        background: url('../images/common/left_arrow_black.png');
+      }
+      .swiper-button-next {
+        background: url('../images/common/right_arrow_black.png');
+      }
+    }
+    .play_pause {
+      &.play {
+        background-image: url('../images/common/play_btn_black.png');
+      }
+      &.pause {
+        background-image: url('../images/common/pause_btn_black.png');
+      }
+    }
+  }
+}
+
+#cnt2 {
+  ul {
+    display: flex;
+    height: 100%;
+    min-height: 400px;
+    li {
+      width: calc(100% / 3);
+      height: 100%;
+      background: no-repeat center;
+      @include bgsize(cover);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:nth-child(1) {
+        background-image: url('../images/main/section1_img01.jpg');
+      }
+      &:nth-child(2) {
+        background-image: url('../images/main/section1_img02.jpg');
+      }
+      &:nth-child(3) {
+        background-image: url('../images/main/section1_img03.jpg');
+      }
+    }
+    li::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: 0.6;
+    }
+
+    .txtbox {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      @include transform(
+        translateY(50px)
+      ); //상단 헤더 100픽셀 fixed로 인해 아래로 50픽셀 내려보내기
+      img {
+        width: 98px;
+      }
+      h3 {
+        font-size: 40px;
+        font-weight: 500;
+        margin: 30px 0 25px;
+      }
+      p {
+        font-weight: 300;
+        line-height: 1.7;
+        opacity: 0.7;
+      }
+      .btn_more {
+        margin-top: 55px;
+        opacity: 0;
+      }
+    }
+    li.active {
+      &::before {
+        background: $orange;
+      }
+      .txtbox .btn_more {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+#cnt3 {
+  .data,
+  .help {
+    float: left;
+    position: relative;
+    height: 100%;
+    min-height: 720px;
+    > div {
+      position: absolute;
+      top: calc(50% + 70px);
+      > p {
+        font-size: 48px;
+        line-height: 1.25;
+      }
+    }
+  }
+
+  .data {
+    width: 37.5%;
+    > div {
+      @include translateY-50;
+      right: 60px;
+      .btn_more {
+        display: block;
+        margin: 45px 0 90px;
+      }
+      img {
+        width: 407px;
+      }
+    }
+  }
+  .help {
+    width: 62.5%;
+    background: url('../images/main/section2_bg.jpg') no-repeat center;
+    @include bgsize(cover);
+    > div {
+      left: 50%;
+      @include translate-50;
+      width: 870px;
+      height: 671px;
+      color: #fff;
+    }
+    ul {
+      margin-top: 95px;
+      display: flex;
+      justify-content: space-between;
+      img {
+        width: 220px;
+        margin-bottom: 40px;
+      }
+      .txtbox {
+        text-align: center;
+
+        strong {
+          display: block;
+          font-size: 28px;
+          font-weight: 500;
+          margin-bottom: 20px;
+        }
+        p {
+          line-height: 1.7;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  #cnt1 {
+    // .txtbox left좌표값, .controller right 좌표값
+    .txtbox {
+      left: 20%;
+    }
+    .controller {
+      right: 8%;
+    }
+  }
+
+  #cnt3 {
+    .data,
+    .help {
+      min-height: vw-calc1440(720);
+      > div {
+        top: calc(50% + #{vw-calc1440(70)});
+        > p {
+          font-size: vw-calc1440(48);
+        }
+      }
+    }
+
+    .data {
+      > div {
+        right: vw-calc1440(60);
+        .btn_more {
+          margin: vw-calc1440(45) 0 vw-calc1440(90);
+        }
+        img {
+          width: vw-calc1440(407);
+        }
+      }
+    }
+    .help {
+      > div {
+        width: 55.9vw;
+        height: 46.6vw;
+      }
+      ul {
+        margin-top: vw-calc1440(95);
+        img {
+          width: vw-calc1440(220);
+          margin-bottom: vw-calc1440(40);
+        }
+        .txtbox {
+          strong {
+            font-size: vw-calc1440(28);
+            margin-bottom: vw-calc1440(20);
+          }
+          p {
+            font-size: vw-calc1440(16);
+          }
+        }
+      }
+    }
+  }
+}
+
+//태블릭
+@media screen and (max-width: 1080px) {
+  #cnt1 {
+    .swiper-container {
+      height: auto;
+      .swiper-slide {
+        background: none;
+        .m_img {
+          display: block;
+          width: 100%;
+        }
+      }
+    }
+    .txtbox {
+      top: 41%;
+      left: 0%;
+      width: 100%;
+      padding: 0 70px;
+      h3 {
+        font-size: 32px;
+        span {
+          margin: 25px 0;
+          min-width: auto; //min-width:auto; max-width:none;
+          text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+        }
+      }
+      p {
+        margin-bottom: 75px;
+        font-weight: 300;
+        font-size: 27px;
+        line-height: 1.7;
+      }
+    }
+    .black .txtbox {
+      color: #000;
+    }
+    .controller {
+      top: 14%;
+      right: 70px;
+    }
+  }
+
+  #cnt2 {
+    ul {
+      flex-direction: column;
+      height: auto;
+      min-height: auto;
+      // 주어진 크기를 제거할 경우 min-width: auto; max-height: none;
+      li {
+        width: 100%;
+        height: 640px;
+        &:nth-child(1) {
+          background-image: url('../images/main/m_section1_img01.jpg');
+        }
+        &:nth-child(2) {
+          background-image: url('../images/main/m_section1_img02.jpg');
+        }
+        &:nth-child(3) {
+          background-image: url('../images/main/m_section1_img03.jpg');
+        }
+      }
+      li::before {
+        display: none;
+      }
+
+      .txtbox {
+        @include transform(translateY(0px));
+        img {
+          width: 128px;
+        }
+        h3 {
+          margin: 40px 0 25px;
+        }
+        p {
+          line-height: 1.4;
+          font-size: 28px;
+        }
+        .btn_more {
+          opacity: 1;
+          background: transparent;
+          border: 2px solid #fff;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  #cnt3 {
+    .data,
+    .help {
+      float: none;
+      width: 100%;
+      height: auto;
+      min-height: auto;
+      > div {
+        position: static;
+        > p {
+          font-size: 60px;
+          line-height: 1.3;
+        }
+      }
+    }
+
+    .data {
+      > div {
+        @include transform(translateY(0));
+        padding: 90px 40px 60px 70px;
+        .btn_more {
+          display: inline-block;
+          margin: 45px 0 0;
+        }
+        img {
+          width: auto;
+          float: right;
+          margin: 50px 0 0 30px;
+        }
+      }
+    }
+
+    .help {
+      > div {
+        @include transform(translate(0, 0));
+        width: 100%;
+        height: auto;
+        padding: 90px 70px 100px;
+      }
+      ul {
+        margin-top: 0px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        li {
+          margin-top: 70px;
+        }
+        a {
+          display: flex;
+          justify-content: space-between;
+        }
+        img {
+          width: 250px;
+          margin-bottom: 0px;
+        }
+        .txtbox {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: left;
+          width: calc(100% - 290px);
+          > * {
+            width: 100%;
+          }
+          strong {
+            font-size: 36px;
+            margin-bottom: 25px;
+          }
+          p {
+            font-size: 24px;
+            line-height: 1.5;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 770px) {
+  #cnt1 {
+    .swiper-container {
+      .swiper-slide {
+        .m_img {
+        }
+      }
+    }
+    .txtbox {
+      top: 44%;
+      padding: 0 vw-calc770(70);
+      h3 {
+        font-size: vw-calc770(32);
+        span {
+          font-size: vw-calc770(94);
+          margin: vw-calc770(25) 0;
+          min-width: auto; //min-width:auto; max-width:none;
+          text-shadow: 0.28vw 0.28vw 0.42vw rgba(0, 0, 0, 0.4);
+        }
+      }
+      p {
+        margin-bottom: vw-calc770(75);
+        font-size: vw-calc770(27);
+      }
+    }
+    .controller {
+      top: 14%;
+      right: vw-calc770(70);
+      z-index: 500;
+      .swiper-pagination,
+      .swiper-button-prev,
+      .swiper-button-next {
+      } /* position: static => position 속성을 제거할 경우 사용 */
+      /* float 속성 제거할경우는 => float:none; */
+      .swiper-pagination {
+        font-size: vw-calc770(20);
+        .swiper-pagination-current {
+          font-size: vw-calc770(40);
+        }
+      }
+      .swiper-button-wrap {
+        margin-top: 2.78vw;
+        // .swiper 슬라이더에서 이전과 다음 버튼은 가상요소로 생성 -> 나만의 디자인을 원하면 가상요소를 display:none;
+        .swiper-button-prev:after,
+        .swiper-button-next:after {
+        }
+        .swiper-button-next {
+          margin-left: vw-calc770(20);
+        }
+      }
+      .swiper_btn,
+      .play_pause {
+        width: vw-calc770(11);
+        height: vw-calc770(18);
+      }
+    }
+  }
+
+  #cnt2 {
+    ul {
+      li {
+        height: (640);
+      }
+      .txtbox {
+        img {
+          width: vw-calc770(128);
+        }
+        h3 {
+          font-size: vw-calc770(40);
+          margin: vw-calc770(40) 0 vw-calc770(25);
+        }
+        p {
+          font-size: vw-calc770(28);
+        }
+        .btn_more {
+          margin-top: vw-calc770(55);
+          border-width: vw-calc770(2);
+        }
+      }
+    }
+  }
+
+  #cnt3 {
+    .data,
+    .help {
+      > div {
+        > p {
+          font-size: vw-calc770(60);
+        }
+      }
+    }
+
+    .data {
+      > div {
+        padding: vw-calc770(90) vw-calc770(40) vw-calc770(60) vw-calc770(70);
+        .btn_more {
+          margin: vw-calc770(45) 0 0;
+        }
+        img {
+          margin: vw-calc770(50) 0 0 vw-calc770(30);
+        }
+      }
+    }
+
+    .help {
+      > div {
+        padding: vw-calc770(90) vw-calc770(70) vw-calc770(100);
+      }
+      ul {
+        li {
+          margin-top: vw-calc770(70);
+        }
+        img {
+          width: vw-calc770(250);
+        }
+        .txtbox {
+          width: calc(100% - #{vw-calc770(290)}); //문자보간필요한지체크
+          strong {
+            font-size: vw-calc770(36);
+            margin-bottom: vw-calc770(25);
+          }
+          p {
+            font-size: vw-calc770(24);
+          }
+        }
+      }
+    }
+  }
+}

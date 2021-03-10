@@ -1,0 +1,378 @@
+@charset "utf-8";
+@import '_var', '_function', '_mixin';
+/* @import "_var.scss"; 확장명 생략 가능
+파일명 앞에 _를 붙이는 이유 : 실시간 감시에서 제외하려고. 쉽게 말해서 css파일로 자동 변환생성 안되게 하려고
+@import "_var1", "_var2", "_var3"; // 여러개 연결할 경우 이렇게 한줄로 써도 됨 */
+
+// .eot(ie8이하), eot#iefix(ie9호환성모드용도), .weff2, .woff, .ttf / .otf
+// formet("") 인용부호 빠지면 안돼
+@font-face {
+  font-family: sCoreDream;
+  font-weight: 300;
+  font-style: normal;
+  src: url('../fonts/S-CoreDream-3Light.eot');
+  src: url('../fonts/S-CoreDream-3Light.eot#iefix') format('embedded-opentype'),
+    url('../fonts/S-CoreDream-3Light.woff2') format('woff2'),
+    url('../fonts/S-CoreDream-3Light.woff') format('woff'),
+    url('../fonts/S-CoreDream-3Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: sCoreDream;
+  font-weight: 400;
+  font-style: normal;
+  src: url('../fonts/S-CoreDream-4Regular.eot');
+  src: url('../fonts/S-CoreDream-4Regular.eot#iefix')
+      format('embedded-opentype'),
+    url('../fonts/S-CoreDream-4Regular.woff2') format('woff2'),
+    url('../fonts/S-CoreDream-4Regular.woff') format('woff'),
+    url('../fonts/S-CoreDream-4Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: sCoreDream;
+  font-weight: 500;
+  font-style: normal;
+  src: url('../fonts/S-CoreDream-5Medium.eot');
+  src: url('../fonts/S-CoreDream-5Medium.eot#iefix') format('embedded-opentype'),
+    url('../fonts/S-CoreDream-5Medium.woff2') format('woff2'),
+    url('../fonts/S-CoreDream-5Medium.woff') format('woff'),
+    url('../fonts/S-CoreDream-5Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: sCoreDream;
+  font-weight: 600;
+  font-style: normal;
+  src: url('../fonts/S-CoreDream-6Bold.eot');
+  src: url('../fonts/S-CoreDream-6Bold.eot#iefix') format('embedded-opentype'),
+    url('../fonts/S-CoreDream-6Bold.woff2') format('woff2'),
+    url('../fonts/S-CoreDream-6Bold.woff') format('woff'),
+    url('../fonts/S-CoreDream-6Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: sCoreDream;
+  font-weight: 700;
+  font-style: normal;
+  src: url('../fonts/S-CoreDream-7ExtraBold.eot');
+  src: url('../fonts/S-CoreDream-7ExtraBold.eot#iefix')
+      format('embedded-opentype'),
+    url('../fonts/S-CoreDream-7ExtraBold.woff2') format('woff2'),
+    url('../fonts/S-CoreDream-7ExtraBold.woff') format('woff'),
+    url('../fonts/S-CoreDream-7ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: ntSansKR;
+  font-weight: 300;
+  font-style: normal;
+  src: url('../fonts/NotoSansKR-Light.eot');
+  src: url('../fonts/NotoSansKR-Light.eot#iefix') format('embedded-opentype'),
+    url('../fonts/NotoSansKR-Light.woff2') format('woff2'),
+    url('../fonts/NotoSansKR-Light.woff') format('woff'),
+    url('../fonts/NotoSansKR-Light.otf') format('opentype');
+}
+@font-face {
+  font-family: ntSansKR;
+  font-weight: 400;
+  font-style: normal;
+  src: url('../fonts/NotoSansKR-Regular.eot');
+  src: url('../fonts/NotoSansKR-Regular.eot#iefix') format('embedded-opentype'),
+    url('../fonts/NotoSansKR-Regular.woff2') format('woff2'),
+    url('../fonts/NotoSansKR-Regular.woff') format('woff'),
+    url('../fonts/NotoSansKR-Regular.otf') format('opentype');
+}
+@font-face {
+  font-family: ntSansKR;
+  font-weight: 500;
+  font-style: normal;
+  src: url('../fonts/NotoSansKR-Medium.eot');
+  src: url('../fonts/NotoSansKR-Medium.eot#iefix') format('embedded-opentype'),
+    url('../fonts/NotoSansKR-Medium.woff2') format('woff2'),
+    url('../fonts/NotoSansKR-Medium.woff') format('woff'),
+    url('../fonts/NotoSansKR-Medium.otf') format('opentype');
+}
+@font-face {
+  font-family: ntSansKR;
+  font-weight: 700;
+  font-style: normal;
+  src: url('../fonts/NotoSansKR-Bold.eot');
+  src: url('../fonts/NotoSansKR-Bold.eot#iefix') format('embedded-opentype'),
+    url('../fonts/NotoSansKR-Bold.woff2') format('woff2'),
+    url('../fonts/NotoSansKR-Bold.woff') format('woff'),
+    url('../fonts/NotoSansKR-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: Raleway;
+  font-weight: 400;
+  font-style: normal;
+  src: url('../fonts/Raleway-Regular.eot');
+  src: url('../fonts/Raleway-Regular.eot#iefix') format('embedded-opentype'),
+    url('../fonts/Raleway-Regular.woff2') format('woff2'),
+    url('../fonts/Raleway-Regular.woff') format('woff'),
+    url('../fonts/Raleway-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: Raleway;
+  font-weight: 700;
+  font-style: normal;
+  src: url('../fonts/Raleway-Bold.eot');
+  src: url('../fonts/Raleway-Bold.eot#iefix') format('embedded-opentype'),
+    url('../fonts/Raleway-Bold.woff2') format('woff2'),
+    url('../fonts/Raleway-Bold.woff') format('woff'),
+    url('../fonts/Raleway-Bold.ttf') format('truetype');
+}
+
+// tag reset
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+p,
+button {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+}
+li {
+  list-style: none;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+img {
+  border: none;
+  vertical-align: top;
+}
+img,
+figure,
+video {
+  max-width: 100%; //모바일,반응형에서 필수 추가
+}
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+input,
+button {
+  font-family: inherit;
+  font-size: 100%;
+  color: inherit;
+}
+address {
+  font-style: normal;
+}
+header,
+nav,
+section,
+footer {
+  display: block;
+}
+
+// common class
+.f_l {
+  float: left;
+}
+.f_r {
+  float: right;
+}
+.p_r {
+  position: relative;
+}
+.p_a {
+  position: absolute;
+}
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.blind {
+  position: absolute;
+  overflow: hidden;
+  border: none;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+}
+
+body {
+  font-family: sCoreDream, ntSansKR, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #222222;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  word-break: keep-all;
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
+/* word-break : 단어를 줄바꿈 할 경우 어떻게 처리하는지
+keep-all은 단어를 중간에 자르지 않고 줄바꿈해서 한줄로 표시
+
+벤더프리픽스(접두사)
+크롬, 사파리 -webkit-
+파이어폭스 -moz-
+오페라 -o-
+ie -ms-
+
+*/
+
+#skip a {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  z-index: 1000;
+  &:focus {
+    //&기호는 부모요소를 호출할때. #skip a:focus 이렇게 /  #skip a :focus 이거 아니고
+    left: 0;
+    background: $orange;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+  }
+}
+
+/* 미디어쿼리 : 스타일의 조건문
+@media 기기타입 and (조건식){
+  조건을 만족하는 해상도일 경우 스타일
+}
+*/
+.max1440 {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.btn_more {
+  display: inline-block;
+  font-weight: 600;
+  text-align: center;
+  //모양
+  &.square {
+    @include radius(6px);
+    width: 180px;
+    height: 48px;
+    line-height: 48px;
+  }
+  &.circle {
+    @include radius(50%);
+    width: 120px;
+    height: 120px;
+    line-height: 1.37;
+    padding: 40px 30px;
+  }
+  //배경색
+  &.orange {
+    background: $orange;
+    color: #fff;
+  }
+  &.white {
+    background: #fff;
+    color: $orange;
+  }
+  &.transparent {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    line-height: 44px;
+  }
+}
+@media screen and (max-width: 1520px) {
+  .max1440 {
+    max-width: 100%;
+    padding: 0 60px;
+  }
+}
+@media screen and (max-width: 1440px) {
+  .btn_more {
+    &.circle {
+      width: vw-calc1440(120);
+      height: vw-calc1440(120);
+      padding: vw-calc1440(40) vw-calc1440(30);
+      font-size: vw-calc1440(16);
+    }
+  }
+}
+@media screen and (max-width: 1080px) {
+  .max1440 {
+    padding: 0 40px;
+    margin: 0;
+  }
+  .btn_more {
+    //모양
+    &.square {
+      @include radius(10px);
+      width: 260px;
+      height: 70px;
+      line-height: 70px;
+      font-size: 26px;
+    }
+    &.circle {
+      width: 160px;
+      height: 160px;
+      font-size: 24px;
+      line-height: 1.4;
+      padding: 50px 30px;
+    }
+  }
+}
+@media screen and (max-width: 770px) {
+  body {
+    font-size: 2.077922077922078vw;
+  }
+  .max1440 {
+    padding: 0 vw-calc770(40);
+  }
+  .btn_more {
+    //모양
+    &.square {
+      @include radius(vw-calc770(10));
+      width: vw-calc770(260);
+      height: vw-calc770(70);
+      line-height: vw-calc770(70);
+      font-size: vw-calc770(26);
+    }
+    &.circle {
+      width: vw-calc770(160);
+      height: vw-calc770(160);
+      font-size: vw-calc770(24);
+      padding: vw-calc770(50) vw-calc770(30);
+    }
+  }
+}
+/* 
+vw:viewport width
+vh:viewport height
+
+픽셀을 vw로 제어
+770해상도에서 40픽셀은 몇 vw?? (반올림, 올림, 버림 함부로 하지 말고 계산 값 유지)
+1)770해상도의 1vw? 770/100 = 7.7px => 1vw=7.7px
+2)40px / 7.7px = 5.194805194805195vw
+
+vw를 픽셀로 제어
+770해상도에서 5vw는 몇 px?
+365해상도에서 5vw는 몇 px? 36.5 * 5 = 18.25px
+1)1vw의 크기가 몇 px?
+2)1vw * 5 = 7.7 * 5 = 38.5px
+
+
+*/

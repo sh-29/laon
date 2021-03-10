@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>swiper slider</title>
+    <link rel="stylesheet" href="css/swiper-bundle.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      button {
+        border: none;
+        background: none;
+        cursor: pointer;
+      }
+      #mainVisual {
+        height: 700px;
+        border: 1px solid #000;
+      }
+      #mainVisual .swiper-wrapper .swiper-slide {
+        background: no-repeat center;
+        background-size: cover;
+      }
+      /* loop옵션을 넣어주면 기존 슬라이더를 복제해서 앞뒤로 추가하기 때문에 nth-child()는 사용하면 안된다 */
+      #mainVisual .swiper-wrapper .slide1 {
+        background: url(../2Responsive/images/visual/visual1.jpg);
+      }
+      #mainVisual .swiper-wrapper .slide2 {
+        background: url(../2Responsive/images/visual/visual2.jpg);
+      }
+      #mainVisual .swiper-wrapper .slide3 {
+        background: url(../2Responsive/images/visual/visual3.jpg);
+      }
+      #mainVisual .swiper-pagination {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-67px);
+      }
+      #mainVisual .swiper-pagination-bullet {
+        width: 16px;
+        height: 16px;
+        margin: 10px;
+        vertical-align: top;
+      }
+      #mainVisual .swiper-pagination-bullet-active {
+        background: #000;
+      }
+      #mainVisual .play_pause {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(51px);
+        font-size: 16px;
+        z-index: 100;
+        height: 16px;
+        line-height: 16px;
+      }
+      /* 자동실행중이므로 일시정지 버튼만 보여져야 함 */
+      #mainVisual .swiper-button-play {
+        display: none;
+      }
+    </style>
+
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/swiper-bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+      $(document).ready(function () {
+        var mySwiper = new Swiper('#mainVisual', {
+          // Optional parameters
+          direction: 'horizontal', //vertical
+          loop: true, //처음과 마지막에서 반복 롤링, 기본값 false
+
+          // 하단에 위치한 페이지네이션:원형, 숫자 (If we need pagination)
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets', //기본값(원형) bullets, 숫자형 fraction
+            clickable: true,
+          },
+
+          // 이전과 다음 버튼 (Navigation arrows)
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+
+          // 접근성 추가:accessibility
+          a11y: {
+            prevSlideMessage: '이전 슬라이드 보기',
+            nextSlideMessage: '다음 슬라이드 보기',
+            firstSlideMessage: '첫번째 슬라이드', //첫전째 슬라이드에 있을때 이전 버튼에 대한 보조기기에 대한 메시지
+            lastSlideMessage: '마지막 슬라이드',
+          },
+
+          // 자동실행
+          autoplay: {
+            delay: 3000, //1초가 1000
+          },
+        });
+
+        //★ 자동실행, 일시정지 컨트롤 버튼 추가
+        $('#mainVisual .play_pause').on('click', function () {
+          if ($(this).hasClass('swiper-button-play')) {
+            mySwiper.autoplay.start();
+          } else {
+            mySwiper.autoplay.stop();
+          }
+          $(this).hide().siblings('button').show();
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="swiper-container" id="mainVisual">
+      <div class="swiper-wrapper">
+        <!-- 슬라이더 상세 내용 -->
+        <div class="swiper-slide slide1">Slide 1</div>
+        <div class="swiper-slide slide2">Slide 2</div>
+        <div class="swiper-slide slide3">Slide 3</div>
+      </div>
+
+      <div class="controller">
+        <!-- bullets, fraction 타입의 네비게이션 -->
+        <div class="swiper-pagination"></div>
+
+        <!-- 이전과 다음 버튼 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- play, pause 버튼 - 기존 옵션에서는 없어서 별도로 추가, aria-label="요소의 제목" -->
+        <button
+          type="button"
+          class="swiper-button-play play_pause"
+          aria-label="자동실행"
+        >
+          <i class="fas fa-play"></i>
+        </button>
+        <button
+          type="button"
+          class="swiper-button-pause play_pause"
+          aria-label="일시정지"
+        >
+          <i class="fas fa-pause"></i>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

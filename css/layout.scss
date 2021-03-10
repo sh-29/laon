@@ -1,0 +1,859 @@
+@charset "utf-8";
+@import '_var', '_mixin', '_function';
+
+// header
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  padding: 0 60px;
+  z-index: 900;
+  .logo {
+    float: left;
+    padding-top: 30px;
+    a {
+      @include bgsize(cover);
+      display: block;
+      width: 89px;
+      height: 40px;
+      background: url('../images/layout/logo_white.png') no-repeat;
+    }
+  }
+  .util {
+    position: absolute;
+    top: 36px;
+    right: 60px;
+    > * {
+      float: left;
+    }
+  }
+  .search {
+    .btn_open {
+      @include bgsize(cover);
+      width: 28px;
+      height: 28px;
+      background: url('../images/layout/search_icon.png') no-repeat center;
+    }
+    .search_wrap {
+      // 지역변수설정하기 : 지정한 선택자 내부에서만 호출가능
+      $lightOrange: #ffd3b8;
+      position: fixed;
+      top: 100px;
+      left: 0;
+      width: 100%;
+      background: $orange;
+      padding: 100px 0;
+      color: #ffffff;
+      display: none;
+      #pcSearch {
+        width: 960px;
+        margin: 0 auto;
+      }
+      .s_top {
+        padding-bottom: 20px;
+        border-bottom: 2px solid #fff;
+        margin-bottom: 30px;
+        * {
+          vertical-align: middle;
+        }
+        input[type='text'] {
+          border: none;
+          background: transparent;
+          width: calc(100% - 80px);
+          margin-right: 20px;
+          color: $lightOrange;
+          height: 38px;
+          font-size: 32px;
+          font-weight: 300;
+          &:-ms-input-placeholder {
+            color: $lightOrange;
+          }
+          &::-ms-input-placeholder {
+            color: $lightOrange;
+          }
+          &::placeholder {
+            color: $lightOrange;
+            opacity: 1;
+          }
+        }
+      }
+      .s_btm {
+        ul li {
+          float: left;
+          margin-right: 12px;
+        }
+        a {
+          @include radius(18px);
+          display: block;
+          padding: 0 20px;
+          height: 36px;
+          line-height: 34px;
+          font-weight: 500;
+          border: 1px solid $lightOrange;
+        }
+      }
+      .btn_close {
+        position: absolute;
+        top: 40px;
+        right: 60px;
+      }
+    }
+  }
+}
+// header에 마우스가 진입하면 스크립트에서 .header.on 추가함
+.header.on {
+  background: #ffffff;
+  .logo a {
+    background-image: url('../images/layout/logo_orange.png');
+  }
+  .search .btn_open {
+    background-image: url('../images/layout/search_icon_on.png');
+  }
+}
+
+#pcHeader {
+  .util {
+    .lang {
+      margin-right: 20px;
+      button {
+        width: 38px;
+        height: 27px;
+        background: url('../images/layout/lang_kr.png') no-repeat;
+      }
+      &.active button {
+        background-image: url('../images/layout/lang_kr_active.png') !important;
+      }
+      ul {
+        @include translateX-50;
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        background: #fff;
+        width: 80px;
+        padding: 10px;
+        border: 1px solid #eee;
+        border-top: 3px solid $orange;
+        text-align: center;
+        &::before {
+          content: '';
+          display: block;
+          clear: both;
+          position: absolute;
+          top: -36px;
+          left: 0;
+          width: 100%;
+          height: 33px;
+          background: url('../images/layout/gnbLi_on.png') no-repeat center
+            bottom;
+        }
+        li a {
+          display: block;
+          padding: 7px 0;
+          font-family: $engFont;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  &.on .util .lang button {
+    background-image: url('../images/layout/lang_kr_on.png'); /* 여기에 no-repeat을 쓰면 왜 화면에서 안보일까요?? */
+  }
+}
+#pcGnb {
+  float: left;
+  margin-left: 75px;
+  .dep1 {
+    float: left;
+    > a {
+      display: block;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 0 15px;
+      height: 100px;
+      line-height: 97px;
+      border-bottom: 3px solid transparent;
+      color: #fff;
+    }
+    &:hover > a,
+    > a:focus,
+    &.on > a {
+      border-bottom-color: $orange;
+      background: url(../images/layout/gnbLi_on.png) no-repeat center bottom;
+    }
+    // @at-root는 중첩을 빠져나오고 싶을 때 사용함
+    @at-root #pcHeader.on #pcGnb .dep1 > a {
+      color: #222222;
+    }
+  }
+  // 글자색 변경 아직 안함
+  .dep2 {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    padding: 0 60px;
+    // 레이아웃 구조 정리
+    .dep2inner,
+    .navtxt > ul {
+      display: table;
+    }
+    .dep2inner > div,
+    .navtxt > ul > li {
+      display: table-cell;
+    }
+    .dep2inner {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      border-left: 1px solid #f4f4f4;
+    }
+  }
+  .navtxt > ul > li,
+  .navtxt2 ul {
+    position: relative;
+    width: 290px;
+    padding: 60px 35px 60px 40px;
+    &::after {
+      content: '';
+      width: 1px;
+      height: 300%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #f4f4f4;
+    }
+  }
+  .navtxt > ul > li {
+    p {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333333;
+      margin-bottom: 20px;
+    }
+    ul li {
+      margin-bottom: 15px;
+      a {
+        display: inline-block;
+        font-weight: 300;
+        color: #999999;
+        line-height: 1.75;
+        .dpchange {
+          display: block;
+        }
+      }
+      a:hover,
+      a:focus {
+        color: $orange;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .navtxt2 ul li {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 40px;
+  }
+  .photo {
+    padding: 60px 0 95px 70px;
+    img {
+      width: 100%;
+    }
+  }
+}
+/* #pcGnb > ul > li:nth-child(6) .dep2 {
+  display: none;
+} */
+#mHeader {
+  display: none;
+}
+// footer
+#footer {
+  background: #222;
+  padding: 38px 0;
+  .max1440 {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.foot_left {
+  font-size: 14px;
+  color: #999;
+  ul,
+  address {
+    font-weight: 300;
+    line-height: 1.3;
+    span {
+      color: #ddd;
+      margin-right: 7px;
+    }
+  }
+  ul li {
+    display: inline;
+    margin-right: 17px;
+    a {
+      border-bottom: 1px solid #fff;
+      color: #ddd;
+    }
+  }
+  p {
+    font-family: $engFont;
+    color: #bcbcbc;
+    padding: 25px 0 24px;
+  }
+  div {
+    * {
+      vertical-align: middle;
+    }
+    a:nth-child(2) {
+      color: #ddd;
+      border-bottom: 1px solid #fff;
+    }
+  }
+}
+.foot_right {
+  font-size: 15px;
+  color: #bcbcbc;
+  .family {
+    display: flex;
+    button,
+    .btn_go {
+      @include radius(6px);
+      height: 42px;
+    }
+    button,
+    .btn_go,
+    ul {
+      border: 1px solid #a7a7a7;
+    }
+    button {
+      text-align: left;
+      padding-left: 15px;
+      width: 150px;
+      background: url('../images/layout/footer_arrow_d.png') no-repeat right
+        15px center;
+    }
+    &.on button {
+      background-image: url('../images/layout/footer_arrow_u.png');
+      @include radius(0 0 6px 6px);
+    }
+    ul {
+      @include radius(6px 6px 0 0);
+      position: absolute;
+      bottom: 41px;
+      left: 0;
+      width: 150px;
+      padding: 15px 15px 0;
+      background: #222;
+      display: none;
+      li {
+        padding-bottom: 15px;
+      }
+    }
+    .btn_go {
+      margin-left: 10px;
+      width: 35px;
+      text-align: center;
+      line-height: 40px;
+    }
+  }
+  .sns {
+    margin-top: 21px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+// 작은 pc
+@media screen and (max-width: 1440px) {
+  // header
+  #pcGnb {
+    .navtxt > ul > li,
+    .navtxt2 ul {
+      width: 210px;
+      padding: 50px 20px;
+    }
+    .navtxt > ul > li {
+      p {
+        margin-bottom: 30px;
+        line-height: 1.4;
+      }
+      ul li {
+        a .dpchange {
+          display: inline; //수정
+        }
+      }
+    }
+    .photo {
+      padding: 50px 0 75px 40px;
+    }
+  }
+  // footer
+}
+
+// 태블릿
+@media screen and (max-width: 1080px) {
+  // header
+  .header {
+    padding: 0 40px;
+    .logo {
+      float: left;
+      padding-top: 30px;
+      a {
+        width: 113px;
+        height: 51px;
+      }
+    }
+    .util {
+      right: 40px;
+    }
+    .search {
+      .btn_open {
+        width: 36px;
+        height: 36px;
+        background-image: url('../images/layout/m_search_icon.png');
+      }
+      .search_wrap {
+        // 지역변수설정하기 : 지정한 선택자 내부에서만 호출가능
+        $lightOrange: #ffd3b8;
+        position: fixed;
+        top: 0px;
+        padding: 0;
+        display: none;
+        #mSearch {
+          padding: 80px 40px 100px;
+        }
+        .s_top {
+          margin-bottom: vw-calc770(28);
+          padding-bottom: vw-calc770(20);
+          border-bottom-width: vw-calc770(2);
+          input[type='text'] {
+            width: calc(100% - 66px);
+            height: 46px;
+            font-size: 36px;
+            margin-right: vw-calc770(20);
+          }
+          .btn_search {
+            width: vw-calc770(40);
+          }
+        }
+        .s_btm {
+          ul li {
+            margin-right: 20px;
+            margin-top: 12px;
+          }
+          a {
+            @include radius(26px);
+            padding: 0 30px;
+            height: 52px;
+            line-height: 48px;
+            font-weight: 500;
+            font-size: 24px;
+            border: 2px solid $lightOrange;
+          }
+        }
+        .btn_close {
+          top: 29.5px;
+          right: 40px;
+          padding: 5px;
+          width: 41px;
+          height: 41px;
+        }
+      }
+    }
+  }
+  // header에 마우스가 진입하면 스크립트에서 .header.on 추가함
+  #pcHeader {
+    display: none;
+  }
+  #mHeader {
+    display: block;
+    .m_on_top {
+      height: 100px;
+      background: #fff;
+      padding: 0 40px;
+      .logo a {
+        background-image: url(../images/layout/logo_orange.png);
+      }
+    }
+  }
+  .btn_gnb_open {
+    @include bgsize(cover);
+    width: 40px;
+    height: 31px;
+    background: url('../images/layout/m_menuBtn.png') no-repeat;
+    margin-left: 20px;
+  }
+  #mHeader.on .btn_gnb_open {
+    background-image: url('../images/layout/m_menuBtn_on.png');
+  }
+  #mgnbDim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+  }
+  .mgnb_wrap {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    overflow-y: auto;
+    height: 100%;
+    // btn_gnb_close 전체메뉴 닫기
+    .btn_gnb_close {
+      padding: 5px;
+      top: 29.5px;
+      right: 40px;
+    }
+  }
+  #mGnb {
+    line-height: 1.2;
+    background: #fff;
+    a {
+      display: block;
+      font-weight: 600;
+    }
+    .dep1 {
+      padding: 60px 40px 75px;
+      > li {
+        margin-bottom: 45px;
+        > a {
+          font-size: 40px;
+        }
+        &.on > a {
+          color: $orange;
+        }
+      }
+    }
+    .dep2 {
+      padding: 35px 30px 0px;
+      > li {
+        margin-bottom: 35px;
+        > a {
+          font-size: 32px;
+          position: relative;
+        }
+        > a:not(.go)::before,
+        > a:not(.go)::after {
+          @include translateY-50;
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 50%;
+          width: 30px;
+          height: 3px;
+          background: #000;
+        }
+        > a:not(.go)::after {
+          @include transform(
+            translateY(-50%) rotate(90deg)
+          ); //한줄에 공백으로 여러개의 transform 작성
+          @include transition(transform 0.5s);
+        }
+        &.on > a:not(.go)::after {
+          @include transform(translateY(-50%) rotate(0deg));
+        }
+      }
+    }
+    .dep3 {
+      padding-bottom: 20px;
+      li {
+        padding-top: 30px;
+        a {
+          font-size: 30px;
+          font-weight: 300;
+          color: #999999;
+        }
+      }
+    }
+  }
+  .mgnb_btm {
+    padding: 0 40px 60px;
+    background: #fff;
+    > div {
+      display: flex;
+      justify-content: space-between;
+    }
+    .select_box {
+      width: calc(50% - 10px);
+      font-family: $engFont;
+      font-size: 32px;
+      position: relative;
+      button,
+      ul {
+        border: 2px solid #bdbdbd;
+      }
+      button {
+        @include bgsize(31px auto);
+        @include radius(10px);
+        width: 100%;
+        line-height: 90px;
+        font-weight: 500;
+        padding: 0 85px 0 40px;
+        background: url('../images/layout/moMenu_arrow_d.png') no-repeat right
+          40px center;
+        text-align: left;
+        &.on {
+          background-image: url('../images/layout/moMenu_arrow_u.png');
+          @include radius(10px 10px 0 0);
+        }
+      }
+      ul {
+        @include radius(0 0 10px 10px);
+        display: none;
+        position: absolute;
+        top: 90px;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        padding-top: 15px;
+        a {
+          display: block;
+          list-style: height 1.3;
+          padding: 0 40px 15px;
+        }
+      }
+    }
+    .sns {
+      display: flex;
+      justify-content: center;
+      padding-top: 30px;
+      li {
+        margin: 0 20px;
+        width: 80px;
+      }
+    }
+  }
+
+  // footer
+  #footer {
+    padding: 55px 0;
+  }
+  .foot_left {
+    font-size: 22px;
+    color: #999;
+    line-height: 1.6;
+    ul,
+    address {
+      line-height: 1.6;
+      span {
+        margin-right: 12px;
+      }
+    }
+    ul li {
+      margin-right: 30px;
+      &.dpchange::after {
+        content: '';
+        display: block;
+        // height: 3px;
+        // background: #ff0;
+      }
+    }
+    p {
+      padding: 35px 0 21px;
+    }
+    div {
+      margin-bottom: 35px;
+    }
+  }
+  .foot_right {
+    display: none;
+  }
+}
+
+// 모바일 :태블릿 사이즈의 1.07배로 키워준 다음 vw라는 단위로 변경
+/* 
+770해상도에서 50픽셀은 몇 vw일까?
+1)770해상도의 1vw가 몇 픽셀인지? 770/100 = 7.7px
+2)50픽셀의 1.07 = 53.5픽셀
+3)53.5 / 7.7 = 6.948051948051948vw
+*/
+@media screen and (max-width: 770px) {
+  // header
+  .header {
+    padding: 0 vw-calc770(40);
+    height: vw-calc770(100);
+    .logo {
+      padding-top: vw-calc770(24.5);
+      a {
+        width: vw-calc770(113);
+        height: vw-calc770(51);
+      }
+    }
+    .util {
+      right: vw-calc770(40);
+      top: vw-calc770(36);
+    }
+    .search {
+      .btn_open {
+        width: vw-calc770(36);
+        height: vw-calc770(36);
+      }
+      .search_wrap {
+        // 지역변수설정하기 : 지정한 선택자 내부에서만 호출가능
+        $lightOrange: #ffd3b8;
+        position: fixed;
+        display: none;
+        #mSearch {
+          padding: vw-calc770(80) vw-calc770(40) vw-calc770(100);
+        }
+        .s_top {
+          margin-bottom: vw-calc770(28);
+          input[type='text'] {
+            width: calc(100% - #{vw-calc770(66)});
+            height: vw-calc770(46);
+            font-size: vw-calc770(36);
+          }
+        }
+        .s_btm {
+          ul li {
+            margin-right: vw-calc770(20);
+            margin-top: vw-calc770(12);
+          }
+          a {
+            @include radius(vw-calc770(26));
+            padding: 0 vw-calc770(30);
+            height: vw-calc770(52);
+            line-height: vw-calc770(48);
+            font-weight: 500;
+            font-size: vw-calc770(24);
+            border: vw-calc770(2) solid $lightOrange;
+          }
+        }
+        .btn_close {
+          top: vw-calc770(29.5);
+          right: vw-calc770(40);
+          padding: vw-calc770(5);
+          width: vw-calc770(41);
+          height: vw-calc770(41);
+        }
+      }
+    }
+  }
+  // header에 마우스가 진입하면 스크립트에서 .header.on 추가함
+  #mHeader {
+    .m_on_top {
+      height: vw-calc770(100);
+      padding: 0 vw-calc770(40);
+    }
+  }
+  .btn_gnb_open {
+    width: vw-calc770(40);
+    height: vw-calc770(31);
+    margin-left: vw-calc770(20);
+  }
+  .mgnb_wrap {
+    // btn_gnb_close 전체메뉴 닫기
+    .btn_gnb_close {
+      padding: vw-calc770(5);
+      top: vw-calc770(29.5);
+      right: vw-calc770(40);
+      width: vw-calc770(41);
+      height: vw-calc770(41);
+    }
+  }
+  #mGnb {
+    .dep1 {
+      padding: vw-calc770(60) vw-calc770(40) vw-calc770(75);
+      > li {
+        margin-bottom: vw-calc770(45);
+        > a {
+          font-size: vw-calc770(40);
+        }
+      }
+    }
+    .dep2 {
+      padding: vw-calc770(35) vw-calc770(30) 0;
+      > li {
+        margin-bottom: vw-calc770(35);
+        > a {
+          font-size: vw-calc770(32);
+          position: relative;
+        }
+        > a:not(.go)::before,
+        > a:not(.go)::after {
+          width: vw-calc770(30);
+          height: vw-calc770(3);
+        }
+      }
+    }
+    .dep3 {
+      padding-bottom: vw-calc770(20);
+      li {
+        padding-top: vw-calc770(30);
+        a {
+          font-size: vw-calc770(30);
+        }
+      }
+    }
+  }
+  .mgnb_btm {
+    padding: 0 vw-calc770(40) vw-calc770(60);
+    .select_box {
+      width: calc(50% - #{vw-calc770(10)});
+      font-size: 4vw;
+      button,
+      ul {
+        border: vw-calc770(2) solid #bdbdbd;
+      }
+      button {
+        @include bgsize(vw-calc770(31) auto);
+        @include radius(vw-calc770(10));
+        line-height: vw-calc770(90);
+        padding: 0 vw-calc770(85) 0 vw-calc770(40);
+        background-position: right vw-calc770(40) center;
+        &.on {
+          @include radius(vw-calc770(10) vw-calc770(10) 0 0);
+        }
+      }
+      ul {
+        @include radius(0 0 vw-calc770(10) vw-calc770(10));
+        top: vw-calc770(90);
+        padding-top: vw-calc770(15);
+        a {
+          padding: 0 vw-calc770(40) vw-calc770(15);
+        }
+      }
+    }
+    .sns {
+      padding-top: vw-calc770(30);
+      li {
+        margin: 0 vw-calc770(20);
+        width: vw-calc770(80);
+      }
+    }
+  }
+  // footer
+  #footer {
+    padding: vw-calc770(55) 0;
+  }
+  .foot_left {
+    font-size: vw-calc770(22);
+    ul,
+    address {
+      span {
+        margin-right: vw-calc770(12);
+      }
+    }
+    ul li {
+      margin-right: vw-calc770(30);
+    }
+    p {
+      padding: vw-calc770(35) 0 vw-calc770(21);
+    }
+    div {
+      margin-bottom: vw-calc770(35);
+    }
+  }
+}

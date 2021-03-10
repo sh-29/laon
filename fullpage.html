@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>fullpage => one page scrolling</title>
+    <link rel="stylesheet" href="css/fullpage.css" />
+    <style>
+      /* 선택자 우선순위 : 3자리의 숫자(숫자가 클수록 우선순위가 높다)
+        백의자리 : 아이디선택자
+        십의자리 : 클래스 선택자
+        일의자리 : 태그 선택자
+        
+        아래 예시 ▼
+        #header{} 특별성 숫자 100
+        #header .test{} 특별성 숫자 110
+        #header .test p{} 특별성 숫자 111
+        #wrap #header .test p{} 특별성 숫자 211
+
+        fullpage.css 가 먼저 선언되고 수정 스타일은 나중에 작성함
+        */
+      #header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: yellow;
+        z-index: 10;
+      }
+      /* .fp-auto-height 이 있다면 반드시 높이를 별도 선언 */
+      #footer {
+        height: 150px;
+      }
+      #fp-nav ul li:nth-child(4) {
+        display: none;
+      }
+    </style>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <!-- 제이쿼리는 브라우저에서 바로 해석되지 못한다. 미리 만들어진 스크립트를 먼저 호출해야 함 -->
+    <script src="js/fullpage.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#fullpage').fullpage({
+          //필요한 옵션 추가하기
+          navigation: true, //인디케이터를 보여지게 처리
+          navigationPosition: 'right', //인디케이터의 위치
+          navigationTooltips: ['회사소개', '상품소개', 'sns', '푸터'], //인디케이터에 오버 했을 때 보여는 텍스트
+          sectionsColor: ['#999999', '#888888', '#777777', '#666666'], //각 본문 배경색
+          afterRender: function () {
+            //문서구조가 표현되고 난 후
+            $('.fp-tooltip').attr('aria-hidden', true); //attribute 속성 => aria-hidden 은 눈에는 보여지지만 스크린리더에서는 읽혀지지 않도록 제어
+          },
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- 
+        fullpage 사용법
+        https://alvarotrigo.com/fullPage/ko/ > 다운로드 > 압축해제 > C:\Users\panic\Dropbox\web\plugins\onepageScrolling\fullPage.js-master\dist 중  fullpage.css, fullpage.min.js 을 복사해서 작업폴더로 이동
+
+        1) 마크업 : 본문 클래스명은 반드시 .section / 태그도 변경 가능
+        <div id="fullpage">
+          <div class="section">Some section</div>
+          <div class="section">Some section</div>
+          <div class="section">Some section</div>
+          <div class="section">Some section</div>
+        </div>
+        2) 연결 fullpage.css, fullpage.min.js
+        3) 스크립트 호출 
+          $('#fullpage').fullpage({
+              필요한 옵션 추가
+          });
+        4) 나머지 스타일 처리
+     -->
+    <div id="wrap">
+      <header id="header">header</header>
+      <div id="fullpage">
+        <!-- 아이디, 클래스명 변경 가능 => 스크립트에서 호출 -->
+        <!-- 반드시 본문영역은 클래스명.section 이어야 함 -->
+        <section class="section" id="cnt1">
+          <div class="intro">
+            <h1>Navigation dots</h1>
+            <p>An easy and beautiful way to navigate throw the sections</p>
+          </div>
+        </section>
+        <section class="section" id="cnt2">
+          <div class="slide" id="slide1">
+            <div class="intro">
+              <h1>Clickable</h1>
+              <p>
+                You can even click on the navigation and jump directly to
+                another section.
+              </p>
+            </div>
+          </div>
+
+          <div class="slide" id="slide2">
+            <h1>Slide 2</h1>
+          </div>
+        </section>
+        <section class="section" id="cnt3">
+          <div class="intro">
+            <h1>Enjoy it</h1>
+          </div>
+        </section>
+        <div class="section fp-auto-height">
+          <footer id="footer">
+            .section.fp-auto-height이라는 클래스명을 추가하면 높이를 마음대로
+            제어할수 있다.
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
